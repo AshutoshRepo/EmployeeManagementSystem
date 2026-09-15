@@ -9,5 +9,16 @@ public class EmployeeService {
     {
         employees=new ArrayList<>();
     }
+    public void addEmployee(Employee employee)
+    {
+        for(Employee e:employees)
+        {
+            if(e.getId()==employee.getId())
+            {
+                System.out.println("UserId already exist");
+                return;
+            }
+        }
+        employees.add(employee);
+    }
 }
-    
