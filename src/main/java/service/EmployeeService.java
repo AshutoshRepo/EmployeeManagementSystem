@@ -9,6 +9,10 @@ public class EmployeeService {
     {
         employees=new ArrayList<>();
     }
+    public void dash()
+    {
+        System.out.println("---------------------------------------------------------");
+    }
     public void addEmployee(Employee employee)
     {
         for(Employee e:employees)
@@ -21,4 +25,24 @@ public class EmployeeService {
         }
         employees.add(employee);
     }
+    public void viewAllEmployees()
+    {
+        if(employees.isEmpty())
+        {
+            System.out.println("No employee added yet");
+        }
+        else
+        {
+            for(Employee e:employees)
+            {
+                System.out.println("ID: "+e.getId());
+                System.out.println("Full Name: "+e.getFullName());
+                System.out.println("Department: "+e.getDepartment());
+                System.out.println("Salary: "+e.getSalary());
+                System.out.println("Email: "+e.getEmail());
+                dash();
+            }
+        }
+    }
+
 }
