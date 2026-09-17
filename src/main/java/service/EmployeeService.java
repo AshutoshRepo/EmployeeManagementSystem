@@ -57,5 +57,17 @@ public class EmployeeService {
         System.out.println("Employee not found");
 
     }
+    public void updateSalary(int id, double salary)
+    {
+        for(Employee e:employees)
+        {
+            if(e.getId()==id)
+            {
+                e.setSalary(salary);
+                return;
+            }
+        }
+        System.out.println("Employee not found");
+    }
 
 }
