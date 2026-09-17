@@ -23,8 +23,7 @@ public class Main {
             System.out.print("Enter your choice: ");
             int choice;
             try {
-                int tempChoice=sc.nextInt();
-                choice=tempChoice;
+                choice= sc.nextInt();
             }
             catch (InputMismatchException i)
             {
