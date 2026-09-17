@@ -95,5 +95,17 @@ public class EmployeeService {
         }
         System.out.println("Employee not found");
     }
+    public void deleteEmployee(int id)
+    {
+        for(Employee e:employees)
+        {
+            if(e.getId()==id)
+            {
+                employees.remove(e);
+                return;
+            }
+        }
+        System.out.println("Employee not found");
+    }
 
 }
