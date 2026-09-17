@@ -2,6 +2,13 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import service.EmployeeService;
 public class Main {
+    static void end()
+    {
+        System.out.println("============================================");
+        System.out.println("                 THE END");
+        System.out.println("============================================");
+        System.out.println("------------------***-----------------------");
+    }
 
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
@@ -31,12 +38,47 @@ public class Main {
                 sc.nextLine();
                 continue;
             }
-            if(choice==5)
+            switch(choice)
             {
-                System.out.println("============================================");
-                System.out.println("        Thanks for using our service");
-                System.out.println("============================================");
-                service=false;
+                case 1:
+                    System.out.println("============================================");
+                    System.out.println("           ADD EMPLOYEE WINDOW");
+                    System.out.println("============================================");
+                    System.out.println("Add employee");
+                    end();
+                    break;
+                case 2:
+                    System.out.println("============================================");
+                    System.out.println("         EMPLOYEE LIST");
+                    System.out.println("============================================");
+                    System.out.println("View All Employees");
+                    end();
+                    break;
+                case 3:
+                    System.out.println("============================================");
+                    System.out.println("         UPDATE EMPLOYEE WINDOW");
+                    System.out.println("============================================");
+                    System.out.println("Update Employee");
+                    end();
+                    break;
+                case 4:
+                    System.out.println("============================================");
+                    System.out.println("         DELETE EMPLOYEE WINDOW");
+                    System.out.println("============================================");
+                    System.out.println("Delete Employee");
+                    end();
+                    break;
+                case 5:
+                    System.out.println("============================================");
+                    System.out.println("        Thanks for using our service");
+                    System.out.println("============================================");
+                    service=false;
+                    break;
+                default:
+                    System.out.println("============================================");
+                    System.out.println("        !!!Enter a valid option!!!");
+                    System.out.println("============================================");
+                    System.out.println("------------------***-----------------------");
             }
 
         }
