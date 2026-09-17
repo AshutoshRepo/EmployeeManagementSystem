@@ -44,5 +44,18 @@ public class EmployeeService {
             }
         }
     }
+    public void updateDepartment(int id,String department)
+    {
+        for(Employee e:employees)
+        {
+            if(e.getId()==id)
+            {
+                e.setDepartment(department);
+                return;
+            }
+        }
+        System.out.println("Employee not found");
+
+    }
 
 }
