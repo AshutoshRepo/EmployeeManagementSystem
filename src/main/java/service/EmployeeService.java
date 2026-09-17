@@ -69,5 +69,17 @@ public class EmployeeService {
         }
         System.out.println("Employee not found");
     }
+    public void updateEmail(int id, String email)
+    {
+        for(Employee e:employees)
+        {
+            if(e.getId()==id)
+            {
+                e.setEmail(email);
+                return;
+            }
+        }
+        System.out.println("Employee not found");
+    }
 
 }
