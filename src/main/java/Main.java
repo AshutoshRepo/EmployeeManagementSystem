@@ -72,7 +72,64 @@ public class Main {
                     System.out.println("============================================");
                     System.out.println("         UPDATE EMPLOYEE WINDOW");
                     System.out.println("============================================");
-                    System.out.println("Update Employee");
+                    System.out.print("Employee ID: ");
+                    int id=sc.nextInt();
+                    boolean updateLoop=true;
+                    int updateChoice=0;
+                    while(updateLoop)
+                    {
+                        System.out.println("\nSelect field to update:");
+                        System.out.println("[1] Department\n[2] Salary\n[3] Email\n[4] All");
+                        System.out.print("Enter your choice: ");
+
+                        try
+                        {
+                            updateChoice = sc.nextInt();
+                            sc.nextLine();
+                            if (updateChoice >= 1 && updateChoice <= 4)
+                            {
+                                updateLoop = false;   // only exit if the number is actually valid
+                            }
+                            else
+                            {
+                                System.out.println("Please enter a number between 1 and 4.");
+                            }
+                        }
+                        catch (InputMismatchException i)
+                        {
+                            System.out.println("Invalid input. Please try again.");
+                            sc.nextLine();
+                        }
+                    }
+                    switch(updateChoice)
+                    {
+                        case 1:
+                            System.out.print("New Department: ");
+                            String updatedDepartment=sc.nextLine();
+                            emp.updateDepartment(id,updatedDepartment);
+                            break;
+                        case 2:
+                            System.out.print("New Salary: ");
+                            double updatedSalary=sc.nextDouble();
+                            emp.updateSalary(id,updatedSalary);
+                            break;
+                        case 3:
+                            System.out.print("New Email: ");
+                            String updatedEmail= sc.nextLine();
+                            emp.updateEmail(id,updatedEmail);
+                            break;
+                        case 4:
+                            System.out.print("New Department: ");
+                            String newDepartment=sc.nextLine();
+                            System.out.print("New Salary: ");
+                            double newSalary=sc.nextDouble();
+                            sc.nextLine();
+                            System.out.print("New Email: ");
+                            String newEmail= sc.nextLine();
+                            emp.updateAll(id,newDepartment,newSalary,newEmail);
+                            break;
+
+                    }
                     end();
                     break;
                 case 4:
