@@ -54,6 +54,7 @@ public class EmployeeService {
         {
             if (e.getId() == id)
             {
+                dash();
                 System.out.println("ID: "+e.getId());
                 System.out.println("Full Name: "+e.getFullName());
                 System.out.println("Department: "+e.getDepartment());
