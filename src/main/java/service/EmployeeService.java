@@ -27,6 +27,7 @@ public class EmployeeService {
         employee.setId(nextId);
         nextId++;
         employees.add(employee);
+        System.out.println("Employee added successfully");
     }
     public void viewAllEmployees()
     {
@@ -54,6 +55,7 @@ public class EmployeeService {
             if(e.getId()==id)
             {
                 e.setDepartment(department);
+                System.out.println("Department updated successfully");
                 return;
             }
         }
@@ -67,6 +69,7 @@ public class EmployeeService {
             if(e.getId()==id)
             {
                 e.setSalary(salary);
+                System.out.println("Salary updated successfully");
                 return;
             }
         }
@@ -79,6 +82,7 @@ public class EmployeeService {
             if(e.getId()==id)
             {
                 e.setEmail(email);
+                System.out.println("Email updated successfully");
                 return;
             }
         }
@@ -93,6 +97,7 @@ public class EmployeeService {
                 e.setDepartment(department);
                 e.setSalary(salary);
                 e.setEmail(email);
+                System.out.println("Employee details updated successfully");
                 return;
             }
         }
@@ -105,6 +110,7 @@ public class EmployeeService {
             if(e.getId()==id)
             {
                 employees.remove(e);
+                System.out.println("Employee deleted successfully");
                 return;
             }
         }
