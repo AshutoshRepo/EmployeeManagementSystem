@@ -45,6 +45,7 @@ public class Main {
                     System.out.println("============================================");
                     System.out.println("           ADD EMPLOYEE WINDOW");
                     System.out.println("============================================");
+                    sc.nextLine();
                     System.out.print("First Name: ");
                     String firstName=sc.nextLine();
                     System.out.print("Last Name: ");
@@ -64,7 +65,7 @@ public class Main {
                     System.out.println("============================================");
                     System.out.println("         EMPLOYEE LIST");
                     System.out.println("============================================");
-                    System.out.println("View All Employees");
+                    emp.viewAllEmployees();
                     end();
                     break;
                 case 3:
