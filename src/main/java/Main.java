@@ -79,20 +79,20 @@ public class Main {
                     while(updateLoop)
                     {
                         System.out.println("\nSelect field to update:");
-                        System.out.println("[1] Department\n[2] Salary\n[3] Email\n[4] All");
+                        System.out.println("[1] Department\n[2] Salary\n[3] Email\n[4] All\n[5] Go Back");
                         System.out.print("Enter your choice: ");
 
                         try
                         {
                             updateChoice = sc.nextInt();
                             sc.nextLine();
-                            if (updateChoice >= 1 && updateChoice <= 4)
+                            if (updateChoice >= 1 && updateChoice <= 5)
                             {
                                 updateLoop = false;   // only exit if the number is actually valid
                             }
                             else
                             {
-                                System.out.println("Please enter a number between 1 and 4.");
+                                System.out.println("Please enter a number between 1 and 5.");
                             }
                         }
                         catch (InputMismatchException i)
@@ -127,6 +127,8 @@ public class Main {
                             System.out.print("New Email: ");
                             String newEmail= sc.nextLine();
                             emp.updateAll(id,newDepartment,newSalary,newEmail);
+                            break;
+                        case 5:
                             break;
 
                     }
