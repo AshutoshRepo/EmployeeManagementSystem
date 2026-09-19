@@ -136,7 +136,9 @@ public class Main {
                     System.out.println("============================================");
                     System.out.println("         DELETE EMPLOYEE WINDOW");
                     System.out.println("============================================");
-                    System.out.println("Delete Employee");
+                    System.out.print("Enter Employee ID: ");
+                    int id1=sc.nextInt();
+                    emp.deleteEmployee(id1);
                     end();
                     break;
                 case 5:
