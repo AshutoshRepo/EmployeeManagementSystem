@@ -5,6 +5,7 @@ import model.Employee;
 
 public class EmployeeService {
     private List<Employee> employees;
+    private int nextId = 1;
     public EmployeeService()
     {
         employees=new ArrayList<>();
@@ -15,14 +16,16 @@ public class EmployeeService {
     }
     public void addEmployee(Employee employee)
     {
-        for(Employee e:employees)
-        {
-            if(e.getId()==employee.getId())
-            {
-                System.out.println("UserId already exist");
-                return;
-            }
-        }
+//        for(Employee e:employees)
+//        {
+//            if(e.getId()==employee.getId())
+//            {
+//                System.out.println("UserId already exist");
+//                return;
+//            }
+//        }
+        employee.setId(nextId);
+        nextId++;
         employees.add(employee);
     }
     public void viewAllEmployees()

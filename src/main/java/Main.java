@@ -1,6 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import service.EmployeeService;
+import model.Employee;
 public class Main {
     static void end()
     {
@@ -44,7 +45,19 @@ public class Main {
                     System.out.println("============================================");
                     System.out.println("           ADD EMPLOYEE WINDOW");
                     System.out.println("============================================");
-                    System.out.println("Add employee");
+                    System.out.print("First Name: ");
+                    String firstName=sc.nextLine();
+                    System.out.print("Last Name: ");
+                    String lastName=sc.nextLine();
+                    System.out.print("Department: ");
+                    String department=sc.nextLine();
+                    System.out.print("Salary: ");
+                    double salary=sc.nextDouble();
+                    sc.nextLine();
+                    System.out.print("Email: ");
+                    String email=sc.nextLine();
+                    Employee newEmployee=new Employee(0,firstName,lastName,department,salary,email);
+                    emp.addEmployee(newEmployee);
                     end();
                     break;
                 case 2:
