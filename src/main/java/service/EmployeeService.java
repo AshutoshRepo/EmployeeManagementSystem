@@ -48,6 +48,22 @@ public class EmployeeService {
             }
         }
     }
+    public void findEmployee(int id)
+    {
+        for (Employee e : employees)
+        {
+            if (e.getId() == id)
+            {
+                System.out.println("ID: "+e.getId());
+                System.out.println("Full Name: "+e.getFullName());
+                System.out.println("Department: "+e.getDepartment());
+                System.out.println("Salary: "+e.getSalary());
+                System.out.println("Email: "+e.getEmail());
+                return;
+            }
+        }
+        System.out.println("Employee not found");
+    }
     public void updateDepartment(int id,String department)
     {
         for(Employee e:employees)

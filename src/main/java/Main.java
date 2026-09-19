@@ -25,7 +25,8 @@ public class Main {
             System.out.println("  [2] View All Employees");
             System.out.println("  [3] Update Employee");
             System.out.println("  [4] Delete Employee");
-            System.out.println("  [5] Exit");
+            System.out.println("  [5] Find Employee by ID");
+            System.out.println("  [6] Exit");
             System.out.println();
             System.out.println("--------------------------------------------");
             System.out.print("Enter your choice: ");
@@ -174,6 +175,30 @@ public class Main {
                     end();
                     break;
                 case 5:
+                    System.out.println("============================================");
+                    System.out.println("        FIND EMPLOYEE BY ID WINDOW");
+                    System.out.println("============================================");
+                    int id2 = 0;
+                    boolean idLoop2 = true;
+                    while (idLoop2)
+                    {
+                        System.out.print("Employee ID: ");
+                        try
+                        {
+                            id2 = sc.nextInt();
+                            sc.nextLine();
+                            idLoop2 = false;
+                        }
+                        catch (InputMismatchException i)
+                        {
+                            System.out.println("Invalid input. Please enter a numeric ID.");
+                            sc.nextLine();
+                        }
+                    }
+                    emp.findEmployee(id2);
+                    end();
+                    break;
+                case 6:
                     System.out.println("============================================");
                     System.out.println("        Thanks for using our service");
                     System.out.println("============================================");
