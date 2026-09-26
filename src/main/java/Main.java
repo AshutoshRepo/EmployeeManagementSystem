@@ -58,7 +58,7 @@ public class Main {
                     sc.nextLine();
                     System.out.print("Email: ");
                     String email=sc.nextLine();
-                    Employee newEmployee=new Employee(0,firstName,lastName,department,salary,email);
+                    Employee newEmployee=new Employee(firstName,lastName,department,salary,email);
                     emp.addEmployee(newEmployee);
                     end();
                     break;

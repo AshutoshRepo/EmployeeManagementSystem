@@ -11,8 +11,8 @@ public class Employee {
      constructor to initialize employee details
      public so Main and EmployeeDAO (different packages) can create Employee objects
      */
-    public Employee(int id, String firstName, String lastName, String department, double salary, String email) {
-        this.id = id;
+    public Employee(String firstName, String lastName, String department, double salary, String email) {
+//        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.department = department;
