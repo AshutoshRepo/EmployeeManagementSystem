@@ -11,13 +11,19 @@ public class Employee {
      constructor to initialize employee details
      public so Main and EmployeeDAO (different packages) can create Employee objects
      */
+    // For new employees — id doesn't exist yet, DB will assign it
     public Employee(String firstName, String lastName, String department, double salary, String email) {
-//        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.department = department;
         this.salary = salary;
         this.email = email;
+    }
+    // For employees read back from the database — id already exists
+    public Employee(int id,String firstName, String lastName, String department, double salary, String email)
+    {
+        this(firstName,lastName,department,salary,email);
+        this.id=id;
     }
     public int getId() {
         return id;
