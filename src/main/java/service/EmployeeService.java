@@ -10,7 +10,7 @@ public class EmployeeService {
     {
         employees=new ArrayList<>();
     }
-    public void dash()
+    public static void dash()
     {
         System.out.println("---------------------------------------------------------");
     }

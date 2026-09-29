@@ -22,7 +22,7 @@ public class Employee {
     // For employees read back from the database — id already exists
     public Employee(int id,String firstName, String lastName, String department, double salary, String email)
     {
-        this(firstName,lastName,department,salary,email);
+        this(firstName,lastName,department,salary,email); //Constructor Chaining
         this.id=id;
     }
     public int getId() {

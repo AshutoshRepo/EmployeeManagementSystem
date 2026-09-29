@@ -1,8 +1,10 @@
 package dao;
 
 import model.Employee;
+import service.EmployeeService;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import util.DBConnection;
@@ -36,7 +38,21 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public List<Employee> viewAllEmployees() throws SQLException {
-        return List.of();
+        String sql="select * from employees";
+        List<Employee> employees=new ArrayList<>();
+        try(Connection conn=DBConnection.getConnection();
+        PreparedStatement stmt=conn.prepareStatement(sql);
+        ResultSet rs=stmt.executeQuery())
+        {
+            while(rs.next())
+            {
+                Employee emp=new Employee(rs.getInt("id"),rs.getString("first_name"),rs.getString("last_name"),rs.getString("department"),rs.getDouble("salary"),rs.getString("email"));
+                employees.add(emp);
+                EmployeeService.dash();
+            }
+
+        }
+        return employees;
     }
 
     @Override
