@@ -94,6 +94,14 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public void updateSalary(int id, double salary) throws SQLException {
+        String sql="UPDATE employees SET salary=? WHERE id=?";
+        try(Connection conn=DBConnection.getConnection();
+        PreparedStatement stmt=conn.prepareStatement(sql))
+        {
+            stmt.setDouble(1,salary);
+            stmt.setInt(2,id);
+            stmt.executeUpdate();
+        }
 
     }
 
