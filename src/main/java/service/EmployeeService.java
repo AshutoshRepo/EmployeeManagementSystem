@@ -3,6 +3,8 @@ import dao.EmployeeDAO;
 import dao.EmployeeDAOImpl;
 import model.Employee;
 
+import java.sql.SQLException;
+
 public class EmployeeService {
     private EmployeeDAO employeeDAO;
     public EmployeeService()
@@ -15,18 +17,15 @@ public class EmployeeService {
     }
     public void addEmployee(Employee employee)
     {
-//        for(Employee e:employees)
-//        {
-//            if(e.getId()==employee.getId())
-//            {
-//                System.out.println("UserId already exist");
-//                return;
-//            }
-//        }
-        employee.setId(nextId);
-        nextId++;
-        employees.add(employee);
-        System.out.println("Employee added successfully");
+        try
+        {
+            int id=employeeDAO.addEmployee(employee);
+            employee.setId(id);
+            System.out.println("Employee added successfully and His/Her ID= "+id);
+        } catch (SQLException e) {
+            System.out.println("Something Went Wrong. Please Try Again");
+            e.printStackTrace();
+        }
     }
     public void viewAllEmployees()
     {
