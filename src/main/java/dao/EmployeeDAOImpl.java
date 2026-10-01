@@ -133,6 +133,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public boolean deleteEmployee(int id) throws SQLException {
-        return false;
+        String sql="DELETE FROM employees WHERE id=?";
+        try(Connection conn=DBConnection.getConnection();
+        PreparedStatement stmt=conn.prepareStatement(sql))
+        {
+            stmt.setInt(1,id);
+            int reslt=stmt.executeUpdate();
+            return reslt>0;
+        }
     }
 }
