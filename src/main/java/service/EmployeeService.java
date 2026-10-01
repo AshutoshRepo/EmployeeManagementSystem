@@ -1,14 +1,13 @@
 package service;
-import java.util.List;
-import java.util.ArrayList;
+import dao.EmployeeDAO;
+import dao.EmployeeDAOImpl;
 import model.Employee;
 
 public class EmployeeService {
-    private List<Employee> employees;
-    private int nextId = 1;
+    private EmployeeDAO employeeDAO;
     public EmployeeService()
     {
-        employees=new ArrayList<>();
+        employeeDAO = new EmployeeDAOImpl();
     }
     public static void dash()
     {
