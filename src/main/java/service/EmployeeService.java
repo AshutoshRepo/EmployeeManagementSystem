@@ -58,20 +58,27 @@ public class EmployeeService {
     }
     public void findEmployee(int id)
     {
-        for (Employee e : employees)
-        {
-            if (e.getId() == id)
+        try {
+            Employee emp=employeeDAO.findEmployee(id);
+            if(emp==null)
+            {
+                System.out.println("No employee found with ID: " + id);
+            }
+            else
             {
                 dash();
-                System.out.println("ID: "+e.getId());
-                System.out.println("Full Name: "+e.getFullName());
-                System.out.println("Department: "+e.getDepartment());
-                System.out.println("Salary: "+e.getSalary());
-                System.out.println("Email: "+e.getEmail());
-                return;
+                System.out.println("ID: "+emp.getId());
+                System.out.println("Full Name: "+emp.getFullName());
+                System.out.println("Department: "+emp.getDepartment());
+                System.out.println("Salary: "+emp.getSalary());
+                System.out.println("Email: "+emp.getEmail());
             }
         }
-        System.out.println("Employee not found");
+        catch (SQLException e)
+        {
+            System.out.println("Something Went Wrong. Please Try Again");
+            e.printStackTrace();
+        }
     }
     public void updateDepartment(int id,String department)
     {
