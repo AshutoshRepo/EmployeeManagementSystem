@@ -82,17 +82,22 @@ public class EmployeeService {
     }
     public void updateDepartment(int id,String department)
     {
-        for(Employee e:employees)
-        {
-            if(e.getId()==id)
-            {
-                e.setDepartment(department);
-                System.out.println("Department updated successfully");
-                return;
-            }
+        try {
+           boolean status=employeeDAO.updateDepartment(id,department);
+           if(status)
+           {
+               System.out.println("Department updated successfully");
+           }
+           else
+           {
+               System.out.println("No employee found with ID: " + id);
+           }
         }
-        System.out.println("Employee not found");
-
+        catch (SQLException e)
+        {
+            System.out.println("Something Went Wrong. Please Try Again");
+            e.printStackTrace();
+        }
     }
     public void updateSalary(int id, double salary)
     {
