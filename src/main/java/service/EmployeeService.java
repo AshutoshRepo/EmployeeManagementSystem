@@ -120,31 +120,41 @@ public class EmployeeService {
     }
     public void updateEmail(int id, String email)
     {
-        for(Employee e:employees)
-        {
-            if(e.getId()==id)
-            {
-                e.setEmail(email);
-                System.out.println("Email updated successfully");
-                return;
-            }
-        }
-        System.out.println("Employee not found");
+       try {
+           boolean status=employeeDAO.updateEmail(id,email);
+           if(status)
+           {
+               System.out.println("Email updated successfully");
+           }
+           else
+           {
+               System.out.println("No employee found with ID: " + id);
+           }
+       }
+       catch (SQLException e)
+       {
+           System.out.println("Something Went Wrong. Please Try Again");
+           e.printStackTrace();
+       }
     }
     public void updateAll(int id, String department, double salary, String email)
     {
-        for(Employee e:employees)
-        {
-            if(e.getId()==id)
+        try {
+            boolean status=employeeDAO.updateAll(id,department,salary,email);
+            if(status)
             {
-                e.setDepartment(department);
-                e.setSalary(salary);
-                e.setEmail(email);
                 System.out.println("Employee details updated successfully");
-                return;
+            }
+            else
+            {
+                System.out.println("No employee found with ID: " + id);
             }
         }
-        System.out.println("Employee not found");
+        catch (SQLException e)
+        {
+            System.out.println("Something Went Wrong. Please Try Again");
+            e.printStackTrace();
+        }
     }
     public void deleteEmployee(int id)
     {
