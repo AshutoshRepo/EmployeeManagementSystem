@@ -4,6 +4,8 @@ import dao.EmployeeDAOImpl;
 import model.Employee;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmployeeService {
     private EmployeeDAO employeeDAO;
@@ -29,21 +31,29 @@ public class EmployeeService {
     }
     public void viewAllEmployees()
     {
-        if(employees.isEmpty())
-        {
-            System.out.println("No employee added yet");
-        }
-        else
-        {
-            for(Employee e:employees)
+        try {
+            List<Employee> employeeList=employeeDAO.viewAllEmployees();
+            if(employeeList.isEmpty())
             {
-                System.out.println("ID: "+e.getId());
-                System.out.println("Full Name: "+e.getFullName());
-                System.out.println("Department: "+e.getDepartment());
-                System.out.println("Salary: "+e.getSalary());
-                System.out.println("Email: "+e.getEmail());
-                dash();
+                System.out.println("No employee added yet");
             }
+            else
+            {
+                for(Employee e:employeeList)
+                {
+                    System.out.println("ID: "+e.getId());
+                    System.out.println("Full Name: "+e.getFullName());
+                    System.out.println("Department: "+e.getDepartment());
+                    System.out.println("Salary: "+e.getSalary());
+                    System.out.println("Email: "+e.getEmail());
+                    dash();
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Something Went Wrong. Please Try Again");
+            e.printStackTrace();
         }
     }
     public void findEmployee(int id)
