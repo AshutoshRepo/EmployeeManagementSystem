@@ -158,16 +158,22 @@ public class EmployeeService {
     }
     public void deleteEmployee(int id)
     {
-        for(Employee e:employees)
-        {
-            if(e.getId()==id)
+        try {
+            boolean status=employeeDAO.deleteEmployee(id);
+            if (status)
             {
-                employees.remove(e);
                 System.out.println("Employee deleted successfully");
-                return;
+            }
+            else
+            {
+                System.out.println("No employee found with ID: " + id);
             }
         }
-        System.out.println("Employee not found");
+        catch (SQLException e)
+        {
+            System.out.println("Something Went Wrong. Please Try Again");
+            e.printStackTrace();
+        }
     }
 
 }
