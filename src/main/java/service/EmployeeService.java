@@ -1,7 +1,9 @@
 package service;
 import dao.EmployeeDAO;
 import dao.EmployeeDAOImpl;
+import exception.EmployeeNotFoundException;
 import model.Employee;
+import exception.InvalidInputException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,6 +19,52 @@ public class EmployeeService {
     {
         System.out.println("---------------------------------------------------------");
     }
+    // Throws InvalidInputException if the text is null or blank
+    private void validateText(String value, String fieldName) throws InvalidInputException {
+        if (value == null || value.isBlank()) {
+            throw new InvalidInputException(fieldName + " cannot be empty");
+        }
+    }
+    // Throws InvalidInputException if salary is 0 or negative
+    private void validateSalary(double salary) throws InvalidInputException
+    {
+        if (salary<=0)
+        {
+            throw new InvalidInputException("Salary cannot be 0 or negative");
+        }
+    }
+    // Throws InvalidInputException if id is 0 or negative
+    private void validateId(int id) throws InvalidInputException
+    {
+        if (id <= 0)
+        {
+            throw new InvalidInputException("Id cannot be 0 or negative");
+        }
+    }
+    // Throws InvalidInputException if email is blank or not in a valid format
+    /*
+     * Regex notes:
+     * regex = a pattern that describes the shape of a text
+     * ^ and $      -> text must start / end exactly here
+     * [A-Za-z0-9]  -> one character from this set
+     * +            -> one or more of the previous thing
+     * {2,}         -> at least 2 of the previous thing
+     * \\.          -> a real dot (plain . means any character, \\ because Java needs it doubled)
+     * Pattern here: something @ domain . 2+ letters  (ashu@gmail.com)
+     * matches() returns true when the text fits the pattern, so use ! to reject bad ones
+     */
+    private void validateEmail(String email) throws InvalidInputException
+    {
+        if (email == null || email.isBlank())
+        {
+            throw new InvalidInputException("Email cannot be empty");
+        }
+        if (!email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"))
+        {
+            throw new InvalidInputException("Enter a valid email address");
+        }
+    }
+
     public void addEmployee(Employee employee)
     {
         try
