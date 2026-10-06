@@ -142,29 +142,80 @@ public class Main {
                     switch(updateChoice)
                     {
                         case 1:
-                            System.out.print("New Department: ");
-                            String updatedDepartment=sc.nextLine();
-                            emp.updateDepartment(id,updatedDepartment);
+                            try {
+                                System.out.print("New Department: ");
+                                String updatedDepartment=sc.nextLine();
+                                emp.updateDepartment(id,updatedDepartment);
+                            }
+                            catch (InvalidInputException e)
+                            {
+                                System.out.println(e.getMessage());
+                            }
                             break;
                         case 2:
-                            System.out.print("New Salary: ");
-                            double updatedSalary=sc.nextDouble();
-                            emp.updateSalary(id,updatedSalary);
+                            try {
+                                double updatedSalary=0.0;
+                                boolean salaryLoop=true;
+                                while (salaryLoop)
+                                {
+                                    try {
+                                        System.out.print("New Salary: ");
+                                        updatedSalary=sc.nextDouble();
+                                        sc.nextLine();
+                                        salaryLoop=false;
+                                    }
+                                    catch (InputMismatchException e)
+                                    {
+                                        System.out.println("Invalid input. Please enter a number.");
+                                        sc.nextLine();
+                                    }
+                                }
+                                emp.updateSalary(id,updatedSalary);
+                            }
+                            catch (InvalidInputException e)
+                            {
+                                System.out.println(e.getMessage());
+                            }
                             break;
                         case 3:
-                            System.out.print("New Email: ");
-                            String updatedEmail= sc.nextLine();
-                            emp.updateEmail(id,updatedEmail);
+                            try {
+                                System.out.print("New Email: ");
+                                String updatedEmail= sc.nextLine();
+                                emp.updateEmail(id,updatedEmail);
+                            }
+                            catch (InvalidInputException e)
+                            {
+                                System.out.println(e.getMessage());
+                            }
                             break;
                         case 4:
-                            System.out.print("New Department: ");
-                            String newDepartment=sc.nextLine();
-                            System.out.print("New Salary: ");
-                            double newSalary=sc.nextDouble();
-                            sc.nextLine();
-                            System.out.print("New Email: ");
-                            String newEmail= sc.nextLine();
-                            emp.updateAll(id,newDepartment,newSalary,newEmail);
+                            try {
+                                System.out.print("New Department: ");
+                                String newDepartment=sc.nextLine();
+                                double newSalary=0;
+                                boolean salaryLoop=true;
+                                while (salaryLoop)
+                                {
+                                    try {
+                                        System.out.print("New Salary: ");
+                                        newSalary=sc.nextDouble();
+                                        sc.nextLine();
+                                        salaryLoop=false;
+                                    }
+                                    catch (InputMismatchException e)
+                                    {
+                                        System.out.println("Invalid input. Please enter a number.");
+                                        sc.nextLine();
+                                    }
+                                }
+                                System.out.print("New Email: ");
+                                String newEmail= sc.nextLine();
+                                emp.updateAll(id,newDepartment,newSalary,newEmail);
+                            }
+                            catch (InvalidInputException e)
+                            {
+                                System.out.println(e.getMessage());
+                            }
                             break;
                         case 5:
                             break;

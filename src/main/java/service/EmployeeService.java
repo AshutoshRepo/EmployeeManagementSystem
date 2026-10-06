@@ -134,8 +134,10 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
-    public void updateDepartment(int id,String department)
+    public void updateDepartment(int id,String department) throws InvalidInputException
     {
+        validateId(id);
+        validateText(department,"Department");
         try {
            boolean status=employeeDAO.updateDepartment(id,department);
            if(status)
@@ -153,8 +155,10 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
-    public void updateSalary(int id, double salary)
+    public void updateSalary(int id, double salary) throws InvalidInputException
     {
+        validateId(id);
+        validateSalary(salary);
         try {
             boolean status=employeeDAO.updateSalary(id,salary);
             if(status)
@@ -172,8 +176,10 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
-    public void updateEmail(int id, String email)
+    public void updateEmail(int id, String email) throws InvalidInputException
     {
+        validateId(id);
+        validateEmail(email);
        try {
            boolean status=employeeDAO.updateEmail(id,email);
            if(status)
@@ -191,8 +197,12 @@ public class EmployeeService {
            e.printStackTrace();
        }
     }
-    public void updateAll(int id, String department, double salary, String email)
+    public void updateAll(int id, String department, double salary, String email) throws InvalidInputException
     {
+        validateId(id);
+        validateText(department,"Department");
+        validateSalary(salary);
+        validateEmail(email);
         try {
             boolean status=employeeDAO.updateAll(id,department,salary,email);
             if(status)
