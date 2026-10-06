@@ -76,7 +76,7 @@ public class EmployeeService {
         {
             int id=employeeDAO.addEmployee(employee);
             employee.setId(id);
-            System.out.println("Employee added successfully and His/Her ID= "+id);
+            System.out.println("Employee " + employee.getFullName() + " added successfully with ID: " + id);
         } catch (SQLException e) {
             System.out.println("Something Went Wrong. Please Try Again");
             e.printStackTrace();
