@@ -109,8 +109,9 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
-    public void findEmployee(int id)
+    public void findEmployee(int id) throws InvalidInputException
     {
+        validateId(id);
         try {
             Employee emp=employeeDAO.findEmployee(id);
             if(emp==null)
@@ -209,8 +210,9 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
-    public void deleteEmployee(int id)
+    public void deleteEmployee(int id) throws InvalidInputException
     {
+        validateId(id);
         try {
             boolean status=employeeDAO.deleteEmployee(id);
             if (status)

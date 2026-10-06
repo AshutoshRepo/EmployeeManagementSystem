@@ -75,7 +75,7 @@ public class Main {
                         System.out.print("Email: ");
                         String email=sc.nextLine();
                         Employee newEmployee=new Employee(firstName,lastName,department,salary,email);
-                        emp.addEmployee(newEmployee);
+                            emp.addEmployee(newEmployee);
 
                     }
                     catch (InvalidInputException e)
@@ -173,51 +173,63 @@ public class Main {
                     end();
                     break;
                 case 4:
-                    System.out.println("============================================");
-                    System.out.println("         DELETE EMPLOYEE WINDOW");
-                    System.out.println("============================================");
-                    int id1 = 0;
-                    boolean idLoop1 = true;
-                    while (idLoop1)
-                    {
-                        System.out.print("Employee ID: ");
-                        try
+                    try {
+                        System.out.println("============================================");
+                        System.out.println("         DELETE EMPLOYEE WINDOW");
+                        System.out.println("============================================");
+                        int id1 = 0;
+                        boolean idLoop1 = true;
+                        while (idLoop1)
                         {
-                            id1 = sc.nextInt();
-                            sc.nextLine();
-                            idLoop1 = false;
+                            System.out.print("Employee ID: ");
+                            try
+                            {
+                                id1 = sc.nextInt();
+                                sc.nextLine();
+                                idLoop1 = false;
+                            }
+                            catch (InputMismatchException i)
+                            {
+                                System.out.println("Invalid input. Please enter a numeric ID.");
+                                sc.nextLine();
+                            }
                         }
-                        catch (InputMismatchException i)
-                        {
-                            System.out.println("Invalid input. Please enter a numeric ID.");
-                            sc.nextLine();
-                        }
+                        emp.deleteEmployee(id1);
                     }
-                    emp.deleteEmployee(id1);
+                    catch (InvalidInputException e)
+                    {
+                        System.out.println(e.getMessage());
+                    }
                     end();
                     break;
                 case 5:
-                    System.out.println("============================================");
-                    System.out.println("        FIND EMPLOYEE BY ID WINDOW");
-                    System.out.println("============================================");
-                    int id2 = 0;
-                    boolean idLoop2 = true;
-                    while (idLoop2)
-                    {
-                        System.out.print("Employee ID: ");
-                        try
+                    try {
+                        System.out.println("============================================");
+                        System.out.println("        FIND EMPLOYEE BY ID WINDOW");
+                        System.out.println("============================================");
+                        int id2 = 0;
+                        boolean idLoop2 = true;
+                        while (idLoop2)
                         {
-                            id2 = sc.nextInt();
-                            sc.nextLine();
-                            idLoop2 = false;
+                            System.out.print("Employee ID: ");
+                            try
+                            {
+                                id2 = sc.nextInt();
+                                sc.nextLine();
+                                idLoop2 = false;
+                            }
+                            catch (InputMismatchException i)
+                            {
+                                System.out.println("Invalid input. Please enter a numeric ID.");
+                                sc.nextLine();
+                            }
                         }
-                        catch (InputMismatchException i)
-                        {
-                            System.out.println("Invalid input. Please enter a numeric ID.");
-                            sc.nextLine();
-                        }
+                        emp.findEmployee(id2);
                     }
-                    emp.findEmployee(id2);
+                    catch (InvalidInputException e)
+                    {
+                        System.out.println(e.getMessage());
+                    }
                     end();
                     break;
                 case 6:
