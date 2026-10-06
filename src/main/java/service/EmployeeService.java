@@ -65,8 +65,13 @@ public class EmployeeService {
         }
     }
 
-    public void addEmployee(Employee employee)
+    public void addEmployee(Employee employee) throws InvalidInputException
     {
+        validateText(employee.getFirstName(),"First Name");
+        validateText(employee.getLastName(),"Last Name");
+        validateText(employee.getDepartment(),"Department");
+        validateSalary(employee.getSalary());
+        validateEmail(employee.getEmail());
         try
         {
             int id=employeeDAO.addEmployee(employee);

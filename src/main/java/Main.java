@@ -1,5 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import exception.InvalidInputException;
 import service.EmployeeService;
 import model.Employee;
 public class Main {
@@ -43,23 +45,43 @@ public class Main {
             switch(choice)
             {
                 case 1:
-                    System.out.println("============================================");
-                    System.out.println("           ADD EMPLOYEE WINDOW");
-                    System.out.println("============================================");
-                    sc.nextLine();
-                    System.out.print("First Name: ");
-                    String firstName=sc.nextLine();
-                    System.out.print("Last Name: ");
-                    String lastName=sc.nextLine();
-                    System.out.print("Department: ");
-                    String department=sc.nextLine();
-                    System.out.print("Salary: ");
-                    double salary=sc.nextDouble();
-                    sc.nextLine();
-                    System.out.print("Email: ");
-                    String email=sc.nextLine();
-                    Employee newEmployee=new Employee(firstName,lastName,department,salary,email);
-                    emp.addEmployee(newEmployee);
+                    try {
+                        System.out.println("============================================");
+                        System.out.println("           ADD EMPLOYEE WINDOW");
+                        System.out.println("============================================");
+                        sc.nextLine();
+                        System.out.print("First Name: ");
+                        String firstName=sc.nextLine();
+                        System.out.print("Last Name: ");
+                        String lastName=sc.nextLine();
+                        System.out.print("Department: ");
+                        String department=sc.nextLine();
+                        double salary=0;
+                        boolean salaryLoop=true;
+                        while (salaryLoop)
+                        {
+                            try {
+                                System.out.print("Salary: ");
+                                salary=sc.nextDouble();
+                                sc.nextLine();
+                                salaryLoop=false;
+                            }
+                            catch (InputMismatchException e)
+                            {
+                                System.out.println("Invalid input. Please enter a number.");
+                                sc.nextLine();
+                            }
+                        }
+                        System.out.print("Email: ");
+                        String email=sc.nextLine();
+                        Employee newEmployee=new Employee(firstName,lastName,department,salary,email);
+                        emp.addEmployee(newEmployee);
+
+                    }
+                    catch (InvalidInputException e)
+                    {
+                        System.out.println(e.getMessage());
+                    }
                     end();
                     break;
                 case 2:
