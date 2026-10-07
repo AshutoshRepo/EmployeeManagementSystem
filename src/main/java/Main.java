@@ -153,6 +153,10 @@ public class Main {
                                 String updatedDepartment=sc.nextLine();
                                 emp.updateDepartment(id,updatedDepartment);
                             }
+                            catch (EmployeeNotFoundException e)
+                            {
+                                System.out.println(e.getMessage());
+                            }
                             catch (InvalidInputException e)
                             {
                                 System.out.println(e.getMessage());
@@ -178,6 +182,10 @@ public class Main {
                                 }
                                 emp.updateSalary(id,updatedSalary);
                             }
+                            catch (EmployeeNotFoundException e)
+                            {
+                                System.out.println(e.getMessage());
+                            }
                             catch (InvalidInputException e)
                             {
                                 System.out.println(e.getMessage());
@@ -188,6 +196,10 @@ public class Main {
                                 System.out.print("New Email: ");
                                 String updatedEmail= sc.nextLine();
                                 emp.updateEmail(id,updatedEmail);
+                            }
+                            catch (EmployeeNotFoundException e)
+                            {
+                                System.out.println(e.getMessage());
                             }
                             catch (DuplicateEmailException e)
                             {
@@ -212,6 +224,7 @@ public class Main {
                                         newSalary=sc.nextDouble();
                                         sc.nextLine();
                                         salaryLoop=false;
+
                                     }
                                     catch (InputMismatchException e)
                                     {
@@ -222,6 +235,10 @@ public class Main {
                                 System.out.print("New Email: ");
                                 String newEmail= sc.nextLine();
                                 emp.updateAll(id,newDepartment,newSalary,newEmail);
+                            }
+                            catch (EmployeeNotFoundException e)
+                            {
+                                System.out.println(e.getMessage());
                             }
                             catch (DuplicateEmailException e)
                             {

@@ -145,20 +145,17 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
-    public void updateDepartment(int id,String department) throws InvalidInputException
+    public void updateDepartment(int id,String department) throws InvalidInputException, EmployeeNotFoundException
     {
         validateId(id);
         validateText(department,"Department");
         try {
            boolean status=employeeDAO.updateDepartment(id,department);
-           if(status)
+           if(!status)
            {
-               System.out.println("Department updated successfully");
+               throw new EmployeeNotFoundException("No employee found with ID: " + id);
            }
-           else
-           {
-               System.out.println("No employee found with ID: " + id);
-           }
+            System.out.println("Department updated successfully");
         }
         catch (SQLException e)
         {
@@ -166,20 +163,17 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
-    public void updateSalary(int id, double salary) throws InvalidInputException
+    public void updateSalary(int id, double salary) throws InvalidInputException, EmployeeNotFoundException
     {
         validateId(id);
         validateSalary(salary);
         try {
             boolean status=employeeDAO.updateSalary(id,salary);
-            if(status)
+            if(!status)
             {
-                System.out.println("Salary updated successfully");
+                throw new EmployeeNotFoundException("No employee found with ID: " + id);
             }
-            else
-            {
-                System.out.println("No employee found with ID: " + id);
-            }
+            System.out.println("Salary updated successfully");
         }
         catch (SQLException e)
         {
@@ -187,20 +181,17 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
-    public void updateEmail(int id, String email) throws InvalidInputException,DuplicateEmailException
+    public void updateEmail(int id, String email) throws InvalidInputException,DuplicateEmailException,EmployeeNotFoundException
     {
         validateId(id);
         validateEmail(email);
        try {
            boolean status=employeeDAO.updateEmail(id,email);
-           if(status)
+           if(!status)
            {
-               System.out.println("Email updated successfully");
+               throw new EmployeeNotFoundException("No employee found with ID: " + id);
            }
-           else
-           {
-               System.out.println("No employee found with ID: " + id);
-           }
+           System.out.println("Email updated successfully");
        }
        catch (SQLIntegrityConstraintViolationException e)
        {
@@ -212,7 +203,7 @@ public class EmployeeService {
            e.printStackTrace();
        }
     }
-    public void updateAll(int id, String department, double salary, String email) throws InvalidInputException, DuplicateEmailException
+    public void updateAll(int id, String department, double salary, String email) throws InvalidInputException, DuplicateEmailException,EmployeeNotFoundException
     {
         validateId(id);
         validateText(department,"Department");
@@ -220,14 +211,11 @@ public class EmployeeService {
         validateEmail(email);
         try {
             boolean status=employeeDAO.updateAll(id,department,salary,email);
-            if(status)
+            if(!status)
             {
-                System.out.println("Employee details updated successfully");
+                throw new EmployeeNotFoundException("No employee found with ID: " + id);
             }
-            else
-            {
-                System.out.println("No employee found with ID: " + id);
-            }
+            System.out.println("Employee details updated successfully");
         }
         catch (SQLIntegrityConstraintViolationException e)
         {
