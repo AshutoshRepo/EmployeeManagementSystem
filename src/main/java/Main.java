@@ -188,6 +188,10 @@ public class Main {
                                 String updatedEmail= sc.nextLine();
                                 emp.updateEmail(id,updatedEmail);
                             }
+                            catch (DuplicateEmailException e)
+                            {
+                                System.out.println(e.getMessage());
+                            }
                             catch (InvalidInputException e)
                             {
                                 System.out.println(e.getMessage());

@@ -190,7 +190,7 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
-    public void updateEmail(int id, String email) throws InvalidInputException
+    public void updateEmail(int id, String email) throws InvalidInputException,DuplicateEmailException
     {
         validateId(id);
         validateEmail(email);
@@ -204,6 +204,10 @@ public class EmployeeService {
            {
                System.out.println("No employee found with ID: " + id);
            }
+       }
+       catch (SQLIntegrityConstraintViolationException e)
+       {
+           throw new DuplicateEmailException("This email is already registered");
        }
        catch (SQLException e)
        {
