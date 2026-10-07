@@ -221,6 +221,10 @@ public class Main {
                                 String newEmail= sc.nextLine();
                                 emp.updateAll(id,newDepartment,newSalary,newEmail);
                             }
+                            catch (DuplicateEmailException e)
+                            {
+                                System.out.println(e.getMessage());
+                            }
                             catch (InvalidInputException e)
                             {
                                 System.out.println(e.getMessage());

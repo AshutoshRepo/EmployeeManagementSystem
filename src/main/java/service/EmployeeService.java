@@ -215,7 +215,7 @@ public class EmployeeService {
            e.printStackTrace();
        }
     }
-    public void updateAll(int id, String department, double salary, String email) throws InvalidInputException
+    public void updateAll(int id, String department, double salary, String email) throws InvalidInputException, DuplicateEmailException
     {
         validateId(id);
         validateText(department,"Department");
@@ -231,6 +231,10 @@ public class EmployeeService {
             {
                 System.out.println("No employee found with ID: " + id);
             }
+        }
+        catch (SQLIntegrityConstraintViolationException e)
+        {
+            throw new DuplicateEmailException("This email is already registered");
         }
         catch (SQLException e)
         {
