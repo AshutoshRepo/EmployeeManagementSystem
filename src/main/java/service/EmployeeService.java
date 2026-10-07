@@ -1,11 +1,13 @@
 package service;
 import dao.EmployeeDAO;
 import dao.EmployeeDAOImpl;
+import exception.DuplicateEmailException;
 import exception.EmployeeNotFoundException;
 import model.Employee;
 import exception.InvalidInputException;
 
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +67,7 @@ public class EmployeeService {
         }
     }
 
-    public void addEmployee(Employee employee) throws InvalidInputException
+    public void addEmployee(Employee employee) throws InvalidInputException,DuplicateEmailException
     {
         validateText(employee.getFirstName(),"First Name");
         validateText(employee.getLastName(),"Last Name");
@@ -77,7 +79,19 @@ public class EmployeeService {
             int id=employeeDAO.addEmployee(employee);
             employee.setId(id);
             System.out.println("Employee " + employee.getFullName() + " added successfully with ID: " + id);
-        } catch (SQLException e) {
+        }
+        /*
+         * SQLIntegrityConstraintViolationException notes:
+         * thrown when MySQL rejects data that breaks a constraint (UNIQUE, NOT NULL, FOREIGN KEY)
+         * it is a child of SQLException, so it must be caught BEFORE SQLException
+         * (specific catch first, general catch last, or the compiler gives an error)
+         * here the only constraint that can fail is UNIQUE email, so we turn it into DuplicateEmailException
+         * if more constraints are added later, check which one failed before showing this message
+         */
+        catch (SQLIntegrityConstraintViolationException e) {
+            throw new DuplicateEmailException("This email is already registered");
+        }
+        catch (SQLException e) {
             System.out.println("Something Went Wrong. Please Try Again");
             e.printStackTrace();
         }

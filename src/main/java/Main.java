@@ -1,6 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import exception.DuplicateEmailException;
 import exception.InvalidInputException;
 import service.EmployeeService;
 import model.Employee;
@@ -78,7 +79,11 @@ public class Main {
                             emp.addEmployee(newEmployee);
 
                     }
-                    catch (InvalidInputException e)
+                    catch (InvalidInputException i)
+                    {
+                        System.out.println(i.getMessage());
+                    }
+                    catch (DuplicateEmailException e)
                     {
                         System.out.println(e.getMessage());
                     }
