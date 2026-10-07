@@ -123,24 +123,21 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
-    public void findEmployee(int id) throws InvalidInputException
+    public void findEmployee(int id) throws InvalidInputException, EmployeeNotFoundException
     {
         validateId(id);
         try {
             Employee emp=employeeDAO.findEmployee(id);
             if(emp==null)
             {
-                System.out.println("No employee found with ID: " + id);
+                throw new EmployeeNotFoundException("No employee found with ID: " + id);
             }
-            else
-            {
-                dash();
-                System.out.println("ID: "+emp.getId());
-                System.out.println("Full Name: "+emp.getFullName());
-                System.out.println("Department: "+emp.getDepartment());
-                System.out.println("Salary: "+emp.getSalary());
-                System.out.println("Email: "+emp.getEmail());
-            }
+            dash();
+            System.out.println("ID: "+emp.getId());
+            System.out.println("Full Name: "+emp.getFullName());
+            System.out.println("Department: "+emp.getDepartment());
+            System.out.println("Salary: "+emp.getSalary());
+            System.out.println("Email: "+emp.getEmail());
         }
         catch (SQLException e)
         {

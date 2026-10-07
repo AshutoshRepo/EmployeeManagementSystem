@@ -296,6 +296,10 @@ public class Main {
                         }
                         emp.findEmployee(id2);
                     }
+                    catch (EmployeeNotFoundException e)
+                    {
+                        System.out.println(e.getMessage());
+                    }
                     catch (InvalidInputException e)
                     {
                         System.out.println(e.getMessage());
