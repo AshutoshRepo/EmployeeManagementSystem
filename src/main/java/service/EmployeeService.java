@@ -242,19 +242,16 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
-    public void deleteEmployee(int id) throws InvalidInputException
+    public void deleteEmployee(int id) throws InvalidInputException, EmployeeNotFoundException
     {
         validateId(id);
         try {
             boolean status=employeeDAO.deleteEmployee(id);
-            if (status)
+            if (!status)
             {
-                System.out.println("Employee deleted successfully");
+                throw new EmployeeNotFoundException("No employee found with ID: " + id);
             }
-            else
-            {
-                System.out.println("No employee found with ID: " + id);
-            }
+            System.out.println("Employee deleted successfully");
         }
         catch (SQLException e)
         {

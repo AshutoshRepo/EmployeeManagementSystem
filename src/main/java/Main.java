@@ -2,6 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import exception.DuplicateEmailException;
+import exception.EmployeeNotFoundException;
 import exception.InvalidInputException;
 import service.EmployeeService;
 import model.Employee;
@@ -201,6 +202,7 @@ public class Main {
                             try {
                                 System.out.print("New Department: ");
                                 String newDepartment=sc.nextLine();
+
                                 double newSalary=0;
                                 boolean salaryLoop=true;
                                 while (salaryLoop)
@@ -259,6 +261,10 @@ public class Main {
                             }
                         }
                         emp.deleteEmployee(id1);
+                    }
+                    catch (EmployeeNotFoundException e)
+                    {
+                        System.out.println(e.getMessage());
                     }
                     catch (InvalidInputException e)
                     {
