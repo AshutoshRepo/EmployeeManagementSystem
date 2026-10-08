@@ -77,14 +77,9 @@ public class Main {
                         System.out.print("Email: ");
                         String email=sc.nextLine();
                         Employee newEmployee=new Employee(firstName,lastName,department,salary,email);
-                            emp.addEmployee(newEmployee);
-
+                        emp.addEmployee(newEmployee);
                     }
-                    catch (InvalidInputException i)
-                    {
-                        System.out.println(i.getMessage());
-                    }
-                    catch (DuplicateEmailException e)
+                    catch (InvalidInputException | DuplicateEmailException e)
                     {
                         System.out.println(e.getMessage());
                     }
@@ -153,11 +148,7 @@ public class Main {
                                 String updatedDepartment=sc.nextLine();
                                 emp.updateDepartment(id,updatedDepartment);
                             }
-                            catch (EmployeeNotFoundException e)
-                            {
-                                System.out.println(e.getMessage());
-                            }
-                            catch (InvalidInputException e)
+                            catch (EmployeeNotFoundException | InvalidInputException e)
                             {
                                 System.out.println(e.getMessage());
                             }
@@ -182,11 +173,7 @@ public class Main {
                                 }
                                 emp.updateSalary(id,updatedSalary);
                             }
-                            catch (EmployeeNotFoundException e)
-                            {
-                                System.out.println(e.getMessage());
-                            }
-                            catch (InvalidInputException e)
+                            catch (EmployeeNotFoundException | InvalidInputException e)
                             {
                                 System.out.println(e.getMessage());
                             }
@@ -197,15 +184,7 @@ public class Main {
                                 String updatedEmail= sc.nextLine();
                                 emp.updateEmail(id,updatedEmail);
                             }
-                            catch (EmployeeNotFoundException e)
-                            {
-                                System.out.println(e.getMessage());
-                            }
-                            catch (DuplicateEmailException e)
-                            {
-                                System.out.println(e.getMessage());
-                            }
-                            catch (InvalidInputException e)
+                            catch (EmployeeNotFoundException | DuplicateEmailException | InvalidInputException e)
                             {
                                 System.out.println(e.getMessage());
                             }
@@ -236,15 +215,7 @@ public class Main {
                                 String newEmail= sc.nextLine();
                                 emp.updateAll(id,newDepartment,newSalary,newEmail);
                             }
-                            catch (EmployeeNotFoundException e)
-                            {
-                                System.out.println(e.getMessage());
-                            }
-                            catch (DuplicateEmailException e)
-                            {
-                                System.out.println(e.getMessage());
-                            }
-                            catch (InvalidInputException e)
+                            catch (EmployeeNotFoundException | DuplicateEmailException | InvalidInputException e)
                             {
                                 System.out.println(e.getMessage());
                             }
@@ -279,11 +250,7 @@ public class Main {
                         }
                         emp.deleteEmployee(id1);
                     }
-                    catch (EmployeeNotFoundException e)
-                    {
-                        System.out.println(e.getMessage());
-                    }
-                    catch (InvalidInputException e)
+                    catch (EmployeeNotFoundException | InvalidInputException e)
                     {
                         System.out.println(e.getMessage());
                     }
@@ -313,11 +280,7 @@ public class Main {
                         }
                         emp.findEmployee(id2);
                     }
-                    catch (EmployeeNotFoundException e)
-                    {
-                        System.out.println(e.getMessage());
-                    }
-                    catch (InvalidInputException e)
+                    catch (EmployeeNotFoundException | InvalidInputException e)
                     {
                         System.out.println(e.getMessage());
                     }
