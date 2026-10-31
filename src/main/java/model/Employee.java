@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * Represents one employee. Holds the id, name, department, salary and email.
+ * A new employee has no id until the database generates one.
+ */
 public class Employee {
     private int id;
     private String firstName;
