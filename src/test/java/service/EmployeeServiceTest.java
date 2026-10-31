@@ -13,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -170,5 +172,126 @@ class EmployeeServiceTest {
         when(employeeDAO.deleteEmployee(99)).thenReturn(false);
         assertThrows(EmployeeNotFoundException.class,()->employeeService.deleteEmployee(99));
         verify(employeeDAO).deleteEmployee(99);
+    }
+
+    // ================= Happy-path tests =================
+
+    // Checks addEmployee() saves through the DAO and sets the generated id on the employee
+    @Test
+    void addEmployee_validEmployee_setsGeneratedId() throws SQLException, InvalidInputException, DuplicateEmailException
+    {
+        Employee emp = new Employee("Ashutosh", "Singh", "SDET", 15000.0, "ashu@gmail.com");
+        when(employeeDAO.addEmployee(emp)).thenReturn(7);
+
+        employeeService.addEmployee(emp);
+
+        assertEquals(7, emp.getId());
+        verify(employeeDAO).addEmployee(emp);
+    }
+
+    // Checks findEmployee() asks the DAO for the id and does not throw when the employee exists
+    @Test
+    void findEmployee_existingId_callsDaoAndDoesNotThrow() throws SQLException
+    {
+        Employee emp = new Employee(1, "Ashutosh", "Singh", "SDET", 15000.0, "ashu@gmail.com");
+        when(employeeDAO.findEmployee(1)).thenReturn(emp);
+
+        assertDoesNotThrow(() -> employeeService.findEmployee(1));
+
+        verify(employeeDAO).findEmployee(1);
+    }
+
+    // Checks viewAllEmployees() does not throw when the DAO returns an empty list
+    @Test
+    void viewAllEmployees_emptyList_doesNotThrow() throws SQLException
+    {
+        when(employeeDAO.viewAllEmployees()).thenReturn(new ArrayList<>());
+
+        assertDoesNotThrow(() -> employeeService.viewAllEmployees());
+
+        verify(employeeDAO).viewAllEmployees();
+    }
+
+    // Checks viewAllEmployees() does not throw when the DAO returns employees
+    @Test
+    void viewAllEmployees_withEmployees_doesNotThrow() throws SQLException
+    {
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(1, "Ashutosh", "Singh", "SDET", 15000.0, "ashu@gmail.com"));
+        employees.add(new Employee(2, "Rahul", "Verma", "HR", 30000.0, "rahul@gmail.com"));
+        when(employeeDAO.viewAllEmployees()).thenReturn(employees);
+
+        assertDoesNotThrow(() -> employeeService.viewAllEmployees());
+
+        verify(employeeDAO).viewAllEmployees();
+    }
+
+    // Checks updateDepartment() calls the DAO with the same values and does not throw when the employee exists
+    @Test
+    void updateDepartment_existingId_callsDaoAndDoesNotThrow() throws SQLException
+    {
+        when(employeeDAO.updateDepartment(1, "DevOps")).thenReturn(true);
+
+        assertDoesNotThrow(() -> employeeService.updateDepartment(1, "DevOps"));
+
+        verify(employeeDAO).updateDepartment(1, "DevOps");
+    }
+
+    // Checks updateSalary() calls the DAO with the same values and does not throw when the employee exists
+    @Test
+    void updateSalary_existingId_callsDaoAndDoesNotThrow() throws SQLException
+    {
+        when(employeeDAO.updateSalary(1, 25000.0)).thenReturn(true);
+
+        assertDoesNotThrow(() -> employeeService.updateSalary(1, 25000.0));
+
+        verify(employeeDAO).updateSalary(1, 25000.0);
+    }
+
+    // Checks updateEmail() calls the DAO with the same values and does not throw when the employee exists
+    @Test
+    void updateEmail_existingId_callsDaoAndDoesNotThrow() throws SQLException
+    {
+        when(employeeDAO.updateEmail(1, "new@gmail.com")).thenReturn(true);
+
+        assertDoesNotThrow(() -> employeeService.updateEmail(1, "new@gmail.com"));
+
+        verify(employeeDAO).updateEmail(1, "new@gmail.com");
+    }
+
+    // Checks updateAll() calls the DAO with the same values and does not throw when the employee exists
+    @Test
+    void updateAll_existingId_callsDaoAndDoesNotThrow() throws SQLException
+    {
+        when(employeeDAO.updateAll(1, "DevOps", 25000.0, "new@gmail.com")).thenReturn(true);
+
+        assertDoesNotThrow(() -> employeeService.updateAll(1, "DevOps", 25000.0, "new@gmail.com"));
+
+        verify(employeeDAO).updateAll(1, "DevOps", 25000.0, "new@gmail.com");
+    }
+
+    // Checks deleteEmployee() calls the DAO with the same id and does not throw when the employee exists
+    @Test
+    void deleteEmployee_existingId_callsDaoAndDoesNotThrow() throws SQLException
+    {
+        when(employeeDAO.deleteEmployee(1)).thenReturn(true);
+
+        assertDoesNotThrow(() -> employeeService.deleteEmployee(1));
+
+        verify(employeeDAO).deleteEmployee(1);
+    }
+
+    // Checks addEmployee() survives a general database error (SQLException) without throwing,
+    // and does not set an id because nothing was saved
+    @Test
+    void addEmployee_sqlError_doesNotThrow() throws SQLException
+    {
+        Employee emp = new Employee("Ashutosh", "Singh", "SDET", 15000.0, "ashu@gmail.com");
+        when(employeeDAO.addEmployee(emp)).thenThrow(new SQLException());
+
+        assertDoesNotThrow(() -> employeeService.addEmployee(emp));
+
+        assertEquals(0, emp.getId());
+        verify(employeeDAO).addEmployee(emp);
     }
 }
