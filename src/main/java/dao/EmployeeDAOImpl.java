@@ -2,7 +2,11 @@ package dao;
 
 import model.Employee;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +44,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         String sql="select * from employees";
         List<Employee> employees=new ArrayList<>();
         try(Connection conn=DBConnection.getConnection();
-        PreparedStatement stmt=conn.prepareStatement(sql);
-        ResultSet rs=stmt.executeQuery())
+            PreparedStatement stmt=conn.prepareStatement(sql);
+            ResultSet rs=stmt.executeQuery())
         {
             while(rs.next())
             {
@@ -57,23 +61,23 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public Employee findEmployee(int id) throws SQLException {
         String sql="SELECT * FROM employees WHERE id=?";
         try(Connection conn=DBConnection.getConnection();
-        PreparedStatement stmt=conn.prepareStatement(sql))
+            PreparedStatement stmt=conn.prepareStatement(sql))
         {
             stmt.setInt(1,id);
-        try(ResultSet rs=stmt.executeQuery())
-        {
-
-            if (rs.next())
+            try(ResultSet rs=stmt.executeQuery())
             {
-                Employee emp=new Employee(rs.getInt("id"),rs.getString("first_name"),rs.getString("last_name"),rs.getString("department"),rs.getDouble("salary"),rs.getString("email"));
-                return emp;
-            }
-            else
-            {
-                return null;
-            }
 
-        }
+                if (rs.next())
+                {
+                    Employee emp=new Employee(rs.getInt("id"),rs.getString("first_name"),rs.getString("last_name"),rs.getString("department"),rs.getDouble("salary"),rs.getString("email"));
+                    return emp;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
         }
     }
 
@@ -81,7 +85,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public boolean updateDepartment(int id, String department) throws SQLException {
         String sql="UPDATE employees SET department=? WHERE id=?";
         try(Connection conn=DBConnection.getConnection();
-        PreparedStatement stmt=conn.prepareStatement(sql))
+            PreparedStatement stmt=conn.prepareStatement(sql))
         {
             stmt.setString(1,department);
             stmt.setInt(2,id);
@@ -95,7 +99,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public boolean updateSalary(int id, double salary) throws SQLException {
         String sql="UPDATE employees SET salary=? WHERE id=?";
         try(Connection conn=DBConnection.getConnection();
-        PreparedStatement stmt=conn.prepareStatement(sql))
+            PreparedStatement stmt=conn.prepareStatement(sql))
         {
             stmt.setDouble(1,salary);
             stmt.setInt(2,id);
@@ -109,7 +113,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public boolean updateEmail(int id, String email) throws SQLException {
         String sql="UPDATE employees SET email=? WHERE id=?";
         try(Connection conn=DBConnection.getConnection();
-        PreparedStatement stmt=conn.prepareStatement(sql))
+            PreparedStatement stmt=conn.prepareStatement(sql))
         {
             stmt.setString(1,email);
             stmt.setInt(2,id);
@@ -122,7 +126,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public boolean updateAll(int id, String department, double salary, String email) throws SQLException {
         String sql="UPDATE employees SET department = ?, salary = ?, email = ? WHERE id = ?";
         try(Connection conn=DBConnection.getConnection();
-        PreparedStatement stmt=conn.prepareStatement(sql))
+            PreparedStatement stmt=conn.prepareStatement(sql))
         {
             stmt.setString(1,department);
             stmt.setDouble(2,salary);
@@ -137,11 +141,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public boolean deleteEmployee(int id) throws SQLException {
         String sql="DELETE FROM employees WHERE id=?";
         try(Connection conn=DBConnection.getConnection();
-        PreparedStatement stmt=conn.prepareStatement(sql))
+            PreparedStatement stmt=conn.prepareStatement(sql))
         {
             stmt.setInt(1,id);
-            int reslt=stmt.executeUpdate();
-            return reslt>0;
+            int result=stmt.executeUpdate();
+            return result>0;
         }
     }
 }
