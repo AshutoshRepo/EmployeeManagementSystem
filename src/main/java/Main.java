@@ -17,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
-        EmployeeService emp=new EmployeeService();
+        EmployeeService employeeService=new EmployeeService();
         boolean service=true;
         while(service)
         {
@@ -77,7 +77,7 @@ public class Main {
                         System.out.print("Email: ");
                         String email=sc.nextLine();
                         Employee newEmployee=new Employee(firstName,lastName,department,salary,email);
-                        emp.addEmployee(newEmployee);
+                        employeeService.addEmployee(newEmployee);
                     }
                     catch (InvalidInputException | DuplicateEmailException e)
                     {
@@ -89,7 +89,7 @@ public class Main {
                     System.out.println("============================================");
                     System.out.println("         EMPLOYEE LIST");
                     System.out.println("============================================");
-                    emp.viewAllEmployees();
+                    employeeService.viewAllEmployees();
                     end();
                     break;
                 case 3:
@@ -146,7 +146,7 @@ public class Main {
                             try {
                                 System.out.print("New Department: ");
                                 String updatedDepartment=sc.nextLine();
-                                emp.updateDepartment(id,updatedDepartment);
+                                employeeService.updateDepartment(id,updatedDepartment);
                             }
                             catch (EmployeeNotFoundException | InvalidInputException e)
                             {
@@ -171,7 +171,7 @@ public class Main {
                                         sc.nextLine();
                                     }
                                 }
-                                emp.updateSalary(id,updatedSalary);
+                                employeeService.updateSalary(id,updatedSalary);
                             }
                             catch (EmployeeNotFoundException | InvalidInputException e)
                             {
@@ -182,7 +182,7 @@ public class Main {
                             try {
                                 System.out.print("New Email: ");
                                 String updatedEmail= sc.nextLine();
-                                emp.updateEmail(id,updatedEmail);
+                                employeeService.updateEmail(id,updatedEmail);
                             }
                             catch (EmployeeNotFoundException | DuplicateEmailException | InvalidInputException e)
                             {
@@ -213,7 +213,7 @@ public class Main {
                                 }
                                 System.out.print("New Email: ");
                                 String newEmail= sc.nextLine();
-                                emp.updateAll(id,newDepartment,newSalary,newEmail);
+                                employeeService.updateAll(id,newDepartment,newSalary,newEmail);
                             }
                             catch (EmployeeNotFoundException | DuplicateEmailException | InvalidInputException e)
                             {
@@ -248,7 +248,7 @@ public class Main {
                                 sc.nextLine();
                             }
                         }
-                        emp.deleteEmployee(id1);
+                        employeeService.deleteEmployee(id1);
                     }
                     catch (EmployeeNotFoundException | InvalidInputException e)
                     {
@@ -278,7 +278,7 @@ public class Main {
                                 sc.nextLine();
                             }
                         }
-                        emp.findEmployee(id2);
+                        employeeService.findEmployee(id2);
                     }
                     catch (EmployeeNotFoundException | InvalidInputException e)
                     {
