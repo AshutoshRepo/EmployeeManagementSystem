@@ -13,10 +13,16 @@ import java.util.List;
 
 public class EmployeeService {
     private EmployeeDAO employeeDAO;
+    // Used by the app (Main): creates the real DAO
     public EmployeeService()
     {
         employeeDAO = new EmployeeDAOImpl();
     }
+    // Used by tests: lets us pass in a fake DAO
+    public EmployeeService(EmployeeDAO employeeDAO) {
+        this.employeeDAO = employeeDAO;
+    }
+
     public static void dash()
     {
         System.out.println("---------------------------------------------------------");
