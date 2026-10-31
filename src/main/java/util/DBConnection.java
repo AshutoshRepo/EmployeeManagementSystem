@@ -7,6 +7,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * Gives the rest of the app a connection to the MySQL database.
+ * The URL, username and password are read from db.properties, not written in the code.
+ */
 public class DBConnection {
     private static String URL;
     private static String USERNAME;
@@ -27,6 +31,13 @@ public class DBConnection {
             throw new RuntimeException("Could not read db.properties. Copy db.properties.example and fill in your values.",e);
         }
     }
+    /**
+     * Opens a new connection to the database.
+     * The caller is responsible for closing it (the DAO does this with try-with-resources).
+     *
+     * @return a new database connection
+     * @throws SQLException if the connection cannot be opened
+     */
     public static Connection getConnection() throws SQLException
     {
         return DriverManager.getConnection(URL,USERNAME,PASSWORD);
