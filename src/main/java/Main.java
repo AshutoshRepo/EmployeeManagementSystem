@@ -6,6 +6,10 @@ import exception.EmployeeNotFoundException;
 import exception.InvalidInputException;
 import service.EmployeeService;
 import model.Employee;
+/**
+ * Entry point of the Employee Management System.
+ * Shows the console menu, reads the user's input and calls EmployeeService.
+ */
 public class Main {
     static void end()
     {
