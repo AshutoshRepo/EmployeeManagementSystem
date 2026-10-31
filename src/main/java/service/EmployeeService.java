@@ -10,6 +10,10 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
+/**
+ * Business logic for employees: validates the input, calls the DAO,
+ * and prints the result messages for the user.
+ */
 public class EmployeeService {
     private EmployeeDAO employeeDAO;
     // Used by the app (Main): creates the real DAO
@@ -22,6 +26,9 @@ public class EmployeeService {
         this.employeeDAO = employeeDAO;
     }
 
+    /**
+     * Prints a dashed line to separate employees in the output.
+     */
     public static void dash()
     {
         System.out.println("---------------------------------------------------------");
@@ -72,6 +79,13 @@ public class EmployeeService {
         }
     }
 
+    /**
+     * Validates and saves a new employee, then sets the generated id on the object.
+     *
+     * @param employee the employee to add
+     * @throws InvalidInputException if a name, department, salary or email is invalid
+     * @throws DuplicateEmailException if the email is already registered
+     */
     public void addEmployee(Employee employee) throws InvalidInputException,DuplicateEmailException
     {
         validateText(employee.getFirstName(),"First Name");
@@ -101,6 +115,9 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
+    /**
+     * Prints every employee, or a message if there are none.
+     */
     public void viewAllEmployees()
     {
         try {
@@ -128,6 +145,13 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
+    /**
+     * Finds an employee by id and prints the details.
+     *
+     * @param id the id of the employee to find
+     * @throws InvalidInputException if the id is 0 or negative
+     * @throws EmployeeNotFoundException if no employee has this id
+     */
     public void findEmployee(int id) throws InvalidInputException, EmployeeNotFoundException
     {
         validateId(id);
@@ -150,16 +174,24 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
+    /**
+     * Changes the department of an employee.
+     *
+     * @param id the id of the employee to update
+     * @param department the new department
+     * @throws InvalidInputException if the id is 0 or negative, or the department is blank
+     * @throws EmployeeNotFoundException if no employee has this id
+     */
     public void updateDepartment(int id,String department) throws InvalidInputException, EmployeeNotFoundException
     {
         validateId(id);
         validateText(department,"Department");
         try {
-           boolean status=employeeDAO.updateDepartment(id,department);
-           if(!status)
-           {
-               throw new EmployeeNotFoundException("No employee found with ID: " + id);
-           }
+            boolean status=employeeDAO.updateDepartment(id,department);
+            if(!status)
+            {
+                throw new EmployeeNotFoundException("No employee found with ID: " + id);
+            }
             System.out.println("Department updated successfully");
         }
         catch (SQLException e)
@@ -168,6 +200,14 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
+    /**
+     * Changes the salary of an employee.
+     *
+     * @param id the id of the employee to update
+     * @param salary the new salary
+     * @throws InvalidInputException if the id is 0 or negative, or the salary is 0 or negative
+     * @throws EmployeeNotFoundException if no employee has this id
+     */
     public void updateSalary(int id, double salary) throws InvalidInputException, EmployeeNotFoundException
     {
         validateId(id);
@@ -186,28 +226,48 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
+    /**
+     * Changes the email of an employee.
+     *
+     * @param id the id of the employee to update
+     * @param email the new email
+     * @throws InvalidInputException if the id is 0 or negative, or the email is blank or not valid
+     * @throws DuplicateEmailException if the email is already registered
+     * @throws EmployeeNotFoundException if no employee has this id
+     */
     public void updateEmail(int id, String email) throws InvalidInputException,DuplicateEmailException,EmployeeNotFoundException
     {
         validateId(id);
         validateEmail(email);
-       try {
-           boolean status=employeeDAO.updateEmail(id,email);
-           if(!status)
-           {
-               throw new EmployeeNotFoundException("No employee found with ID: " + id);
-           }
-           System.out.println("Email updated successfully");
-       }
-       catch (SQLIntegrityConstraintViolationException e)
-       {
-           throw new DuplicateEmailException("This email is already registered");
-       }
-       catch (SQLException e)
-       {
-           System.out.println("Something Went Wrong. Please Try Again");
-           e.printStackTrace();
-       }
+        try {
+            boolean status=employeeDAO.updateEmail(id,email);
+            if(!status)
+            {
+                throw new EmployeeNotFoundException("No employee found with ID: " + id);
+            }
+            System.out.println("Email updated successfully");
+        }
+        catch (SQLIntegrityConstraintViolationException e)
+        {
+            throw new DuplicateEmailException("This email is already registered");
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Something Went Wrong. Please Try Again");
+            e.printStackTrace();
+        }
     }
+    /**
+     * Changes the department, salary and email of an employee in one go.
+     *
+     * @param id the id of the employee to update
+     * @param department the new department
+     * @param salary the new salary
+     * @param email the new email
+     * @throws InvalidInputException if the id, department, salary or email is invalid
+     * @throws DuplicateEmailException if the email is already registered
+     * @throws EmployeeNotFoundException if no employee has this id
+     */
     public void updateAll(int id, String department, double salary, String email) throws InvalidInputException, DuplicateEmailException,EmployeeNotFoundException
     {
         validateId(id);
@@ -232,6 +292,13 @@ public class EmployeeService {
             e.printStackTrace();
         }
     }
+    /**
+     * Deletes an employee.
+     *
+     * @param id the id of the employee to delete
+     * @throws InvalidInputException if the id is 0 or negative
+     * @throws EmployeeNotFoundException if no employee has this id
+     */
     public void deleteEmployee(int id) throws InvalidInputException, EmployeeNotFoundException
     {
         validateId(id);
