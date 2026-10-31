@@ -2,6 +2,7 @@ package service;
 
 import dao.EmployeeDAO;
 import exception.DuplicateEmailException;
+import exception.EmployeeNotFoundException;
 import exception.InvalidInputException;
 import model.Employee;
 import org.junit.jupiter.api.Test;
@@ -90,5 +91,22 @@ class EmployeeServiceTest {
         //.thenThrow(new SQLIntegrityConstraintViolationException()) makes the fake behave like MySQL rejecting a duplicate email.
         assertThrows(DuplicateEmailException.class,()->employeeService.addEmployee(emp));
         verify(employeeDAO).addEmployee(emp);
+    }
+
+    // findEmployee Test
+    // Checks findEmployee() rejects id 0 and never reaches the database
+    @Test
+    void findEmployee_zeroId_throwsInvalidInputException() throws SQLException
+    {
+        assertThrows(InvalidInputException.class, () -> employeeService.findEmployee(0));
+        verify(employeeDAO, never()).findEmployee(anyInt());
+    }
+    // Checks findEmployee() throws EmployeeNotFoundException when the DAO finds nothing (returns null)
+    @Test
+    void findEmployee_unknownId_throwsEmployeeNotFoundException() throws SQLException
+    {
+        when(employeeDAO.findEmployee(55)).thenReturn(null);
+        assertThrows(EmployeeNotFoundException.class,()->employeeService.findEmployee(55));
+        verify(employeeDAO).findEmployee(55);
     }
 }
